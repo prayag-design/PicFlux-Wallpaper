@@ -8,7 +8,8 @@ const App: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        fontFamily:
+          'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         background: '#020617',
         color: '#e5e7eb',
         flexDirection: 'column',
@@ -16,7 +17,9 @@ const App: React.FC = () => {
         textAlign: 'center',
       }}
     >
-      <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>PicFlux Wallpapers is LIVE 🎉</h1>
+      <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>
+        PicFlux Wallpapers is LIVE 🎉
+      </h1>
       <p>React app sahi chal raha hai. Ab hum baad me full UI wapas add karenge.</p>
     </div>
   );
