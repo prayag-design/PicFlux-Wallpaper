@@ -112,6 +112,43 @@ useEffect(() => {
   // Theme state
   const [isDark, setIsDark] = useState(true);
   useEffect(() => {
+  async function loadFromPexels() {
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        'https://api.pexels.com/v1/search?query=wallpapers&per_page=30&page=1',
+        {
+          headers: {
+            Authorization: import.meta.env.VITE_PEXELS_API_KEY || '',
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      const mapped: Wallpaper[] = (data.photos ?? []).map((photo: any) => ({
+        id: String(photo.id),
+        title: photo.alt || 'Pexels Wallpaper',
+        category: 'Pexels',
+        url: photo.src?.large2x || photo.src?.large || photo.src?.original,
+        thumbnail:
+          photo.src?.medium || photo.src?.small || photo.src?.tiny || '',
+        isPremium: false,
+        tags: photo.alt ? photo.alt.split(' ') : [],
+      }));
+
+      setWallpapers(mapped);
+    } catch (err) {
+      console.error('Error loading Pexels wallpapers', err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  loadFromPexels();
+}, []);
+  useEffect(() => {
   if (isDark) {
     document.documentElement.classList.add("dark");
   } else {
