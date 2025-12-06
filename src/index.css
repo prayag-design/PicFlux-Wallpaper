@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Global extra styles */
+html {
+  scroll-behavior: smooth;
+}
 
 /* 💡 Light & Dark Theme Variables */
 :root {
