@@ -8,6 +8,48 @@
     />
     <title>PicFlux Wallpapers</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    :root {
+        --bg-color: #f3f4f6;
+        --surface-color: #ffffff;
+        --text-primary: #111827;
+      }
+      .dark {
+        --bg-color: #0f0f0f;
+        --surface-color: #1e1e1e;
+        --text-primary: #ffffff;
+      }
+      body { 
+        background-color: var(--bg-color); 
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+      }
+      /* Smooth transition for theme switching */
+      body, div, nav, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6 {
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--bg-color); }
+      ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #666; }
+
+      /* Animation Keyframes */
+      @keyframes modalEnter {
+        0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes backdropEnter {
+        0% { opacity: 0; backdrop-filter: blur(0px); }
+        100% { opacity: 1; backdrop-filter: blur(4px); }
+      }
+      .animate-modal-enter {
+        animation: modalEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-backdrop-enter {
+        animation: backdropEnter 0.4s ease-out forwards;
+      }
     <script>
     tailwind.config = {
       darkMode: 'class',
