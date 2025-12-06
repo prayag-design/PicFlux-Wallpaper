@@ -25,8 +25,14 @@ const App: React.FC = () => {
   
   // Theme state
   const [isDark, setIsDark] = useState(true);
-
-  // Pagination State
+  useEffect(() => {
+  if (isDark) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}, [isDark]);
+// Pagination State
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 20;
