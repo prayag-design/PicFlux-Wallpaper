@@ -18,6 +18,49 @@ type ViewState = 'home' | 'admin' | 'upload' | 'premium' | 'analytics';
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>('home');
   const [wallpapers, setWallpapers] = useState<Wallpaper[]>([]);
+useEffect(() => {
+  async function loadFromPexels() {
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        'https://api.pexels.com/v1/search?query=wallpapers&per_page=30&page=1',
+        {
+          headers: {
+            Authorization: import.meta.env.VITE_PEXELS_API_KEY || '',
+          },
+        }
+      );
+
+      if (!res.ok) {
+        console.error('Pexels API error', res.status, await res.text());
+        setWallpapers([]);
+        return;
+      }
+
+      const data = await res.json();
+
+      const mapped: Wallpaper[] = (data.photos ?? []).map((photo: any) => ({
+        id: String(photo.id),
+        title: photo.alt || 'Pexels Wallpaper',
+        category: 'Pexels',
+        url: photo.src?.large2x || photo.src?.large || photo.src?.original,
+        thumbnail: photo.src?.medium || photo.src?.small,
+        isPremium: false,
+        tags: photo.alt ? photo.alt.split(' ') : [],
+      }));
+
+      setWallpapers(mapped);
+    } catch (err) {
+      console.error('Error loading Pexels wallpapers', err);
+      setWallpapers([]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  loadFromPexels();
+}, []); 
   const [loading, setLoading] = useState(true);
   const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
   const [showGenerateModal, setShowGenerateModal] = useState(false);
